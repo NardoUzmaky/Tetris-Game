@@ -1,6 +1,7 @@
 workspace "tetris_game"
     configurations {"Debug", "Release"}
     platforms {"Win64"}
+    location "bin"
     filter {"platforms:Win64"}
         system "Windows"
         architecture "x64"
