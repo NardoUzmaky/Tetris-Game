@@ -1,19 +1,19 @@
 workspace "tetris_game"
     configurations {"Debug", "Release"}
-    language "C++"
-    location "bin"
     platforms {"Win64"}
-
     filter {"platforms:Win64"}
         system "Windows"
         architecture "x64"
 
 project "main"
     kind "ConsoleApp"
+    language "C++"
     targetdir "bin"
     objdir "bin/%{cfg.buildcfg}"
 
-    files {"src/*.cpp", "include/*.h"}
+    files {"src/*.cpp", "include/*.hpp"}
+
+    includedirs {"include"}
 
     filter "configurations:Debug"
         defines {"DEBUG"}

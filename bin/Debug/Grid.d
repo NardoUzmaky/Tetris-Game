@@ -1,4 +1,4 @@
-Debug/main.o: ../src/main.cpp ../src/../include/Class.hpp \
+Debug/Grid.o: ../src/Grid.cpp ../src/../include/Class.hpp \
  ../src/../include/helper_functions.hpp \
  C:/ProgramData/mingw64/mingw64/lib/gcc/x86_64-w64-mingw32/13.2.0/include/c++/vector \
  C:/ProgramData/mingw64/mingw64/lib/gcc/x86_64-w64-mingw32/13.2.0/include/c++/bits/requires_hosted.h \
@@ -210,7 +210,6 @@ Debug/main.o: ../src/main.cpp ../src/../include/Class.hpp \
  C:/ProgramData/mingw64/mingw64/lib/gcc/x86_64-w64-mingw32/13.2.0/include/c++/bits/atomic_timed_wait.h \
  C:/ProgramData/mingw64/mingw64/lib/gcc/x86_64-w64-mingw32/13.2.0/include/c++/bits/this_thread_sleep.h \
  C:/ProgramData/mingw64/mingw64/x86_64-w64-mingw32/include/semaphore.h \
- ../src/../include/helper_functions.hpp \
  C:/ProgramData/mingw64/mingw64/lib/gcc/x86_64-w64-mingw32/13.2.0/include/c++/iostream
 ../src/../include/Class.hpp:
 ../src/../include/helper_functions.hpp:
@@ -424,5 +423,4 @@ C:/ProgramData/mingw64/mingw64/lib/gcc/x86_64-w64-mingw32/13.2.0/include/c++/bit
 C:/ProgramData/mingw64/mingw64/lib/gcc/x86_64-w64-mingw32/13.2.0/include/c++/bits/atomic_timed_wait.h:
 C:/ProgramData/mingw64/mingw64/lib/gcc/x86_64-w64-mingw32/13.2.0/include/c++/bits/this_thread_sleep.h:
 C:/ProgramData/mingw64/mingw64/x86_64-w64-mingw32/include/semaphore.h:
-../src/../include/helper_functions.hpp:
 C:/ProgramData/mingw64/mingw64/lib/gcc/x86_64-w64-mingw32/13.2.0/include/c++/iostream:

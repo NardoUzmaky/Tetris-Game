@@ -19,9 +19,9 @@ endif
 # #############################################
 
 RESCOMP = windres
-TARGETDIR = .
+TARGETDIR = bin
 TARGET = $(TARGETDIR)/main.exe
-INCLUDES +=
+INCLUDES += -Iinclude
 FORCE_INCLUDE +=
 ALL_CPPFLAGS += $(CPPFLAGS) -MD -MP $(DEFINES) $(INCLUDES)
 ALL_RESFLAGS += $(RESFLAGS) $(DEFINES) $(INCLUDES)
@@ -36,14 +36,14 @@ define POSTBUILDCMDS
 endef
 
 ifeq ($(config),debug_win64)
-OBJDIR = Debug
+OBJDIR = bin/Debug
 DEFINES += -DDEBUG
 ALL_CFLAGS += $(CFLAGS) $(ALL_CPPFLAGS) -m64 -g
 ALL_CXXFLAGS += $(CXXFLAGS) $(ALL_CPPFLAGS) -m64 -g -std=gnu++20
 ALL_LDFLAGS += $(LDFLAGS) -L/usr/lib64 -m64
 
 else ifeq ($(config),release_win64)
-OBJDIR = Release
+OBJDIR = bin/Release
 DEFINES += -DNDEBUG
 ALL_CFLAGS += $(CFLAGS) $(ALL_CPPFLAGS) -m64 -O2
 ALL_CXXFLAGS += $(CXXFLAGS) $(ALL_CPPFLAGS) -m64 -O2 -std=gnu++20
@@ -132,16 +132,16 @@ endif
 # File Rules
 # #############################################
 
-$(OBJDIR)/Grid.o: ../src/Grid.cpp
+$(OBJDIR)/Grid.o: src/Grid.cpp
 	@echo "$(notdir $<)"
 	$(SILENT) $(CXX) $(ALL_CXXFLAGS) $(FORCE_INCLUDE) -o "$@" -MF "$(@:%.o=%.d)" -c "$<"
-$(OBJDIR)/Tetronimo.o: ../src/Tetronimo.cpp
+$(OBJDIR)/Tetronimo.o: src/Tetronimo.cpp
 	@echo "$(notdir $<)"
 	$(SILENT) $(CXX) $(ALL_CXXFLAGS) $(FORCE_INCLUDE) -o "$@" -MF "$(@:%.o=%.d)" -c "$<"
-$(OBJDIR)/helper_functions.o: ../src/helper_functions.cpp
+$(OBJDIR)/helper_functions.o: src/helper_functions.cpp
 	@echo "$(notdir $<)"
 	$(SILENT) $(CXX) $(ALL_CXXFLAGS) $(FORCE_INCLUDE) -o "$@" -MF "$(@:%.o=%.d)" -c "$<"
-$(OBJDIR)/main.o: ../src/main.cpp
+$(OBJDIR)/main.o: src/main.cpp
 	@echo "$(notdir $<)"
 	$(SILENT) $(CXX) $(ALL_CXXFLAGS) $(FORCE_INCLUDE) -o "$@" -MF "$(@:%.o=%.d)" -c "$<"
 

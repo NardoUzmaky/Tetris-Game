@@ -49,7 +49,19 @@
 			"streambuf": "cpp",
 			"typeinfo": "cpp",
 			"iostream": "cpp",
-			"istream": "cpp"
+			"istream": "cpp",
+			"format": "cpp",
+			"span": "cpp",
+			"charconv": "cpp",
+			"chrono": "cpp",
+			"ctime": "cpp",
+			"ratio": "cpp",
+			"iomanip": "cpp",
+			"semaphore": "cpp",
+			"sstream": "cpp",
+			"stop_token": "cpp",
+			"thread": "cpp",
+			"variant": "cpp"
 		}
 	}
 }

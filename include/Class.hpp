@@ -1,7 +1,10 @@
+#ifndef CLASS_HPP
+#define CLASS_HPP
+
+#include "helper_functions.hpp"
+
 #include <vector>
 #include <string>
-#include <cassert>
-#include <cmath>
 #include <chrono>
 #include <thread>
 
@@ -28,6 +31,7 @@ class Tetromino {
     public:
         Tetromino(PieceType t) : type(t), alignment(0) {
             setRandomColor();
+            init_shape();
         }
 
         void init_shape() {
@@ -78,6 +82,8 @@ class Tetromino {
         }
 
         void rotate_shape(double angle);
+
+        void move_shape(int direction);
 };
 
 class Grid {
@@ -88,15 +94,13 @@ class Grid {
 
         }
 
-        void draw() {
+        void draw();
 
-        }
         void update() { // update game state
             //checkForCollision();
         }
 
 };
-
 
 class Game {
     private:
@@ -111,7 +115,7 @@ class Game {
         
         void run() {
             while(isRunning) {
-               std::this_thread::sleep_for(std::chrono::milliseconds((int)(1/FPS)));
+               std::this_thread::sleep_for(std::chrono::milliseconds((int)(2000)));
             }
         }
         
@@ -120,3 +124,5 @@ class Game {
             currentPiece = Tetromino(t);
         }
 };
+
+#endif

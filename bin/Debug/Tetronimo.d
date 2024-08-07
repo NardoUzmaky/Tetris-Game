@@ -1,4 +1,4 @@
-Debug/main.o: ../src/main.cpp ../src/../include/Class.hpp \
+Debug/Tetronimo.o: ../src/Tetronimo.cpp ../src/../include/Class.hpp \
  ../src/../include/helper_functions.hpp \
  C:/ProgramData/mingw64/mingw64/lib/gcc/x86_64-w64-mingw32/13.2.0/include/c++/vector \
  C:/ProgramData/mingw64/mingw64/lib/gcc/x86_64-w64-mingw32/13.2.0/include/c++/bits/requires_hosted.h \
@@ -211,7 +211,21 @@ Debug/main.o: ../src/main.cpp ../src/../include/Class.hpp \
  C:/ProgramData/mingw64/mingw64/lib/gcc/x86_64-w64-mingw32/13.2.0/include/c++/bits/this_thread_sleep.h \
  C:/ProgramData/mingw64/mingw64/x86_64-w64-mingw32/include/semaphore.h \
  ../src/../include/helper_functions.hpp \
- C:/ProgramData/mingw64/mingw64/lib/gcc/x86_64-w64-mingw32/13.2.0/include/c++/iostream
+ C:/ProgramData/mingw64/mingw64/lib/gcc/x86_64-w64-mingw32/13.2.0/include/c++/cmath \
+ C:/ProgramData/mingw64/mingw64/x86_64-w64-mingw32/include/math.h \
+ C:/ProgramData/mingw64/mingw64/lib/gcc/x86_64-w64-mingw32/13.2.0/include/c++/bits/specfun.h \
+ C:/ProgramData/mingw64/mingw64/lib/gcc/x86_64-w64-mingw32/13.2.0/include/c++/tr1/gamma.tcc \
+ C:/ProgramData/mingw64/mingw64/lib/gcc/x86_64-w64-mingw32/13.2.0/include/c++/tr1/special_function_util.h \
+ C:/ProgramData/mingw64/mingw64/lib/gcc/x86_64-w64-mingw32/13.2.0/include/c++/tr1/bessel_function.tcc \
+ C:/ProgramData/mingw64/mingw64/lib/gcc/x86_64-w64-mingw32/13.2.0/include/c++/tr1/beta_function.tcc \
+ C:/ProgramData/mingw64/mingw64/lib/gcc/x86_64-w64-mingw32/13.2.0/include/c++/tr1/ell_integral.tcc \
+ C:/ProgramData/mingw64/mingw64/lib/gcc/x86_64-w64-mingw32/13.2.0/include/c++/tr1/exp_integral.tcc \
+ C:/ProgramData/mingw64/mingw64/lib/gcc/x86_64-w64-mingw32/13.2.0/include/c++/tr1/hypergeometric.tcc \
+ C:/ProgramData/mingw64/mingw64/lib/gcc/x86_64-w64-mingw32/13.2.0/include/c++/tr1/legendre_function.tcc \
+ C:/ProgramData/mingw64/mingw64/lib/gcc/x86_64-w64-mingw32/13.2.0/include/c++/tr1/modified_bessel_func.tcc \
+ C:/ProgramData/mingw64/mingw64/lib/gcc/x86_64-w64-mingw32/13.2.0/include/c++/tr1/poly_hermite.tcc \
+ C:/ProgramData/mingw64/mingw64/lib/gcc/x86_64-w64-mingw32/13.2.0/include/c++/tr1/poly_laguerre.tcc \
+ C:/ProgramData/mingw64/mingw64/lib/gcc/x86_64-w64-mingw32/13.2.0/include/c++/tr1/riemann_zeta.tcc
 ../src/../include/Class.hpp:
 ../src/../include/helper_functions.hpp:
 C:/ProgramData/mingw64/mingw64/lib/gcc/x86_64-w64-mingw32/13.2.0/include/c++/vector:
@@ -425,4 +439,18 @@ C:/ProgramData/mingw64/mingw64/lib/gcc/x86_64-w64-mingw32/13.2.0/include/c++/bit
 C:/ProgramData/mingw64/mingw64/lib/gcc/x86_64-w64-mingw32/13.2.0/include/c++/bits/this_thread_sleep.h:
 C:/ProgramData/mingw64/mingw64/x86_64-w64-mingw32/include/semaphore.h:
 ../src/../include/helper_functions.hpp:
-C:/ProgramData/mingw64/mingw64/lib/gcc/x86_64-w64-mingw32/13.2.0/include/c++/iostream:
+C:/ProgramData/mingw64/mingw64/lib/gcc/x86_64-w64-mingw32/13.2.0/include/c++/cmath:
+C:/ProgramData/mingw64/mingw64/x86_64-w64-mingw32/include/math.h:
+C:/ProgramData/mingw64/mingw64/lib/gcc/x86_64-w64-mingw32/13.2.0/include/c++/bits/specfun.h:
+C:/ProgramData/mingw64/mingw64/lib/gcc/x86_64-w64-mingw32/13.2.0/include/c++/tr1/gamma.tcc:
+C:/ProgramData/mingw64/mingw64/lib/gcc/x86_64-w64-mingw32/13.2.0/include/c++/tr1/special_function_util.h:
+C:/ProgramData/mingw64/mingw64/lib/gcc/x86_64-w64-mingw32/13.2.0/include/c++/tr1/bessel_function.tcc:
+C:/ProgramData/mingw64/mingw64/lib/gcc/x86_64-w64-mingw32/13.2.0/include/c++/tr1/beta_function.tcc:
+C:/ProgramData/mingw64/mingw64/lib/gcc/x86_64-w64-mingw32/13.2.0/include/c++/tr1/ell_integral.tcc:
+C:/ProgramData/mingw64/mingw64/lib/gcc/x86_64-w64-mingw32/13.2.0/include/c++/tr1/exp_integral.tcc:
+C:/ProgramData/mingw64/mingw64/lib/gcc/x86_64-w64-mingw32/13.2.0/include/c++/tr1/hypergeometric.tcc:
+C:/ProgramData/mingw64/mingw64/lib/gcc/x86_64-w64-mingw32/13.2.0/include/c++/tr1/legendre_function.tcc:
+C:/ProgramData/mingw64/mingw64/lib/gcc/x86_64-w64-mingw32/13.2.0/include/c++/tr1/modified_bessel_func.tcc:
+C:/ProgramData/mingw64/mingw64/lib/gcc/x86_64-w64-mingw32/13.2.0/include/c++/tr1/poly_hermite.tcc:
+C:/ProgramData/mingw64/mingw64/lib/gcc/x86_64-w64-mingw32/13.2.0/include/c++/tr1/poly_laguerre.tcc:
+C:/ProgramData/mingw64/mingw64/lib/gcc/x86_64-w64-mingw32/13.2.0/include/c++/tr1/riemann_zeta.tcc:
