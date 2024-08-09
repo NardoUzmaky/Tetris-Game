@@ -17,13 +17,15 @@ int main() {
     //RotMatrix[0].insert(RotMatrix[0].begin()+1, 10);
 
     //print_Matrix(RotMatrix);
-    Grid grid =  Grid();
+    Grid grid = Grid();
+    Game game = Game();
     Tetromino piece(PieceType::T);
     try {
         grid.draw();
-        //piece.rotate_shape(90);
-        //auto shape = piece.getShape();
-        //print_Matrix(shape);
+        //game.run();
+        piece.rotate_shape(1);
+        auto shape = piece.getShape();
+        print_Matrix(shape);
         return 0;
     } catch (std::exception& e) {
         std::cout << e.what() << std::endl;

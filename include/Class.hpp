@@ -7,6 +7,7 @@
 #include <string>
 #include <chrono>
 #include <thread>
+#include <atomic>
 
 const int BOARD_WIDTH = 10;
 const int BOARD_HEIGHT = 20;
@@ -34,45 +35,8 @@ class Tetromino {
             init_shape();
         }
 
-        void init_shape() {
-            switch (type) {
-                case PieceType::I:
-                    shape = {{0, 0, 0, 0},
-                             {1, 1, 1, 1},
-                             {0, 0, 0, 0},
-                             {0, 0, 0, 0}};
-                    break;
-                case PieceType::J:
-                    shape = {{1, 0, 0},
-                             {1, 1, 1},
-                             {0, 0, 0}};
-                    break;
-                case PieceType::L:
-                    shape = {{0, 0, 1},
-                             {1, 1, 1},
-                             {0, 0, 0}};
-                    break;
-                case PieceType::O:
-                    shape = {{1, 1},
-                             {1, 1}};
-                    break;
-                case PieceType::S:
-                    shape = {{1, 1, 0},
-                             {0, 1, 1},
-                             {0, 0, 0}};
-                    break;
-                case PieceType::T:
-                    shape = {{0, 1, 0},
-                             {1, 1, 1},
-                             {0, 0, 0}};
-                    break;
-                case PieceType::Z:
-                    shape = {{0, 1, 1},
-                             {1, 1, 0},
-                             {0, 0, 0}};
-                    break;
-            }
-        }
+        void init_shape();
+
         std::vector<std::vector<int>> getShape() {
             return shape;
         }
@@ -81,7 +45,7 @@ class Tetromino {
             color = Colors(rand()%7); 
         }
 
-        void rotate_shape(double angle);
+        void rotate_shape(int direction);
 
         void move_shape(int direction);
 };
@@ -96,33 +60,27 @@ class Grid {
 
         void draw();
 
-        void update() { // update game state
-            //checkForCollision();
-        }
+        void update();
 
 };
 
 class Game {
     private:
-        bool isRunning;
+        std::atomic<bool> isRunning;
+        std::atomic<char> lastInput{0};
         Grid board;
         Tetromino currentPiece;
         int score;
+
+        void inputThread();
     public:
         Game() : score(0), isRunning(true), currentPiece(PieceType(rand()%7)) {
             //
         }
         
-        void run() {
-            while(isRunning) {
-               std::this_thread::sleep_for(std::chrono::milliseconds((int)(2000)));
-            }
-        }
+        void run();
         
-        void newPiece() {
-            PieceType t = PieceType(rand()%7);
-            currentPiece = Tetromino(t);
-        }
+        void newPiece();
 };
 
 #endif
