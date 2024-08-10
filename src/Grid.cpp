@@ -12,18 +12,29 @@ void clear() {
     #endif
 }
 
-void Grid::draw() {
+void Grid::draw(Tetromino& currentPiece) {
 
     clear(); // clear console output
+
+    int current_Piece_height = currentPiece.get_shape_height();
+    int current_Piece_width = currentPiece.get_shape_width();
+    int x = currentPiece.get_x();
+    int y = currentPiece.get_y();
+
+    std::vector<std::vector<int>>& shape = currentPiece.get_shape();
 
     for (int i = 0; i < BOARD_WIDTH+1; ++i) {
         std::cout << "##";
     }
     std::cout << "\n";
-    for(auto it = board.begin(); it != board.end(); ++it) {
+    for(int i = 0;i < BOARD_HEIGHT; ++i) {
         std::cout << "#";
-        for (auto it2 = (*it).begin(); it2 != (*it).end(); ++it2) {
-            std::cout << (*it2 ? "[]" : "  "); 
+        for (int j = 0; j < BOARD_WIDTH; ++j) {
+            if((x <= j && j < x + current_Piece_width) && (y <= i && i < y + current_Piece_height)){
+                std::cout << (shape[i-y][j-x] ? "[]" : "  ");
+            } else {
+                std::cout << (board[i][j] ? "[]" : "  ");  
+            }
         };
         std::cout << "#";
         std::cout << "\n";

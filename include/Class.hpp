@@ -26,11 +26,11 @@ class Tetromino {
         PieceType type;
         Colors color;
         std::vector<std::vector<int>> shape;
-        int alignment; // 0 = default, 1 = rotated 90 deg to the right, 2 = etc..
-        int x, y;
+        //int alignment; // 0 = default, 1 = rotated 90 deg to the right, 2 = etc..
+        int x, y; // coordinates of top left corner of shape
 
     public:
-        Tetromino(PieceType t) : type(t), alignment(0) {
+        Tetromino(PieceType t) : type(t), x(0), y(0) {
             setRandomColor();
             init_shape();
         }
@@ -48,6 +48,15 @@ class Tetromino {
         void rotate_shape(int direction);
 
         void move_shape(int direction);
+
+        int get_shape_width();
+
+        int get_shape_height();
+
+        int get_x();
+        int get_y();
+
+        std::vector<std::vector<int>>& get_shape();
 };
 
 class Grid {
@@ -58,7 +67,7 @@ class Grid {
 
         }
 
-        void draw();
+        void draw(Tetromino& currentPiece);
 
         void update();
 
@@ -66,7 +75,7 @@ class Grid {
 
 class Game {
     private:
-        std::atomic<bool> isRunning;
+        std::atomic<bool> isRunning{true};
         std::atomic<char> lastInput{0};
         Grid board;
         Tetromino currentPiece;
@@ -74,7 +83,7 @@ class Game {
 
         void inputThread();
     public:
-        Game() : score(0), isRunning(true), currentPiece(PieceType(rand()%7)) {
+        Game() : score(0), currentPiece(PieceType(rand()%7)) {
             //
         }
         

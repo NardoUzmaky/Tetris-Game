@@ -10,47 +10,66 @@ void Tetromino::move_shape(int direction) {
     } else if (direction == 1) {
         --x;
     } else if (direction == 2){ // move down 
-        --y;
+        ++y;
     }
     return;
+}
+
+int Tetromino::get_shape_height() {
+    return shape.size();
+}
+
+int Tetromino::get_shape_width() {
+    return shape[0].size();
+}
+
+int Tetromino::get_x() {
+    return x;
+}
+int Tetromino::get_y() {
+    return y;
+}
+
+std::vector<std::vector<int>>& Tetromino::get_shape() {
+    return shape;
 }
 
 void Tetromino::init_shape() {
     switch (type) {
         case PieceType::I:
             shape = {{0, 0, 0, 0},
-                        {1, 1, 1, 1},
-                        {0, 0, 0, 0},
-                        {0, 0, 0, 0}};
+                    {1, 1, 1, 1},
+                    {0, 0, 0, 0},
+                    {0, 0, 0, 0}};
             break;
         case PieceType::J:
             shape = {{1, 0, 0},
-                        {1, 1, 1},
-                        {0, 0, 0}};
+                    {1, 1, 1},
+                    {0, 0, 0}};
             break;
         case PieceType::L:
             shape = {{0, 0, 1},
-                        {1, 1, 1},
-                        {0, 0, 0}};
+                    {1, 1, 1},
+                    {0, 0, 0}};
             break;
         case PieceType::O:
             shape = {{1, 1},
-                        {1, 1}};
+                    {1, 1}};
             break;
         case PieceType::S:
             shape = {{1, 1, 0},
-                        {0, 1, 1},
-                        {0, 0, 0}};
+                    {0, 1, 1},
+                    {0, 0, 0}};
             break;
         case PieceType::T:
             shape = {{0, 1, 0},
-                        {1, 1, 1},
-                        {0, 0, 0}};
+                    {1, 1, 1},
+                    {0, 0, 0}};
             break;
         case PieceType::Z:
             shape = {{0, 1, 1},
-                        {1, 1, 0},
-                        {0, 0, 0}};
+                    {1, 1, 0},
+                    {0, 0, 0}};
             break;
     }
 }
@@ -104,5 +123,6 @@ void Tetromino::rotate_shape(int direction) { // if direction = 0: rotate 90° t
     if (width != org_width) {
         removeColumn(new_shape, width/2);
     }
+    print_Matrix(new_shape);
     shape = new_shape;
 }

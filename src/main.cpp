@@ -2,6 +2,7 @@
 #include "../include/helper_functions.hpp"
 #include <iostream>
 #include <exception>
+#include <atomic>
 
 
 
@@ -21,13 +22,16 @@ int main() {
     Game game = Game();
     Tetromino piece(PieceType::T);
     try {
-        grid.draw();
-        //game.run();
-        piece.rotate_shape(1);
-        auto shape = piece.getShape();
-        print_Matrix(shape);
+
+        //game.newPiece();
+        //grid.draw);
+        game.run();
+        //piece.rotate_shape(1);
+        //auto shape = piece.getShape();
+        //print_Matrix(shape);
         return 0;
     } catch (std::exception& e) {
+        std::cout << "Caught Error: \n"; 
         std::cout << e.what() << std::endl;
     }
     return 1; 
