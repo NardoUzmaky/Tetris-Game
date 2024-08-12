@@ -18,13 +18,13 @@ int main() {
     //RotMatrix[0].insert(RotMatrix[0].begin()+1, 10);
 
     //print_Matrix(RotMatrix);
-    Grid grid = Grid();
+    //Grid grid = Grid();
+
+    srand((unsigned) time(NULL)); // set random seed for random number generator (otherwise we will always get the same number)
     Game game = Game();
     Tetromino piece(PieceType::T);
     try {
-
         //game.newPiece();
-        //grid.draw);
         game.run();
         //piece.rotate_shape(1);
         //auto shape = piece.getShape();

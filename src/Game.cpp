@@ -31,8 +31,14 @@ void Game::run() {
                         break;
                 }
             }
-        std::this_thread::sleep_for(std::chrono::milliseconds((int)(100)));
-        board.draw(currentPiece);
+            std::this_thread::sleep_for(std::chrono::milliseconds((int)(20)));
+            if(board.hasCollided(currentPiece)) {
+                board.update(currentPiece);
+                board.draw(currentPiece);
+                newPiece();
+            } else {
+                board.draw(currentPiece);
+            }
         }
     }
     catch(const std::exception& e)
@@ -45,7 +51,6 @@ void Game::run() {
 void Game::inputThread() {
     while(isRunning) {
         char ch = getch();
-        std::cout << "input char: " << ch << std::endl;
         lastInput.store(ch); // replace existing value with char from input
     }
 }

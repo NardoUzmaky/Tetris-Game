@@ -123,6 +123,5 @@ void Tetromino::rotate_shape(int direction) { // if direction = 0: rotate 90° t
     if (width != org_width) {
         removeColumn(new_shape, width/2);
     }
-    print_Matrix(new_shape);
     shape = new_shape;
 }

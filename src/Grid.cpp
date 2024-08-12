@@ -31,7 +31,7 @@ void Grid::draw(Tetromino& currentPiece) {
         std::cout << "#";
         for (int j = 0; j < BOARD_WIDTH; ++j) {
             if((x <= j && j < x + current_Piece_width) && (y <= i && i < y + current_Piece_height)){
-                std::cout << (shape[i-y][j-x] ? "[]" : "  ");
+                std::cout << (shape[i-y][j-x] ? "[]" : (board[i][j] ? "[]" : "  "));
             } else {
                 std::cout << (board[i][j] ? "[]" : "  ");  
             }
@@ -47,6 +47,41 @@ void Grid::draw(Tetromino& currentPiece) {
     std::cout.flush();
 }
 
-void Grid::update() {
-    
+void Grid::update(Tetromino& currentPiece) { // after having collided add current piece to board.
+    int PieceWidth = currentPiece.get_shape_width();
+    int PieceHeight = currentPiece.get_shape_height();
+
+    int x = currentPiece.get_x();
+    int y = currentPiece.get_y();
+
+    std::vector<std::vector<int>>& shape = currentPiece.get_shape();
+
+    for(int i = 0; i < PieceHeight; ++i) {
+        for(int j = 0; j < PieceWidth; ++j) {
+            if (shape[i][j]){
+                board[i+y][j+x] = 1;
+            }
+        }
+    }
+    return;
+}
+
+bool Grid::hasCollided(Tetromino& currentPiece) {
+    int PieceWidth = currentPiece.get_shape_width();
+    int PieceHeight = currentPiece.get_shape_height();
+
+    int x = currentPiece.get_x();
+    int y = currentPiece.get_y(); // stupid names
+
+    std::vector<std::vector<int>>& shape = currentPiece.get_shape();
+
+    for(int i = 0; i < PieceHeight; ++i) {
+        for(int j = 0; j < PieceWidth; ++j) {
+            if (shape[i][j] && (i + y == BOARD_HEIGHT-1 || board[i+y+1][j+x])){
+                std::cout << "collision at " << x << ", " << y << std::endl;
+                return true;
+            }
+        }
+    }
+    return false;
 }
