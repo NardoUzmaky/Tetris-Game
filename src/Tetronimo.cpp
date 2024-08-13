@@ -11,6 +11,8 @@ void Tetromino::move_shape(int direction) {
         --x;
     } else if (direction == 2){ // move down 
         ++y;
+    } else if (direction == 3) { // move up
+        --y;
     }
     return;
 }
@@ -118,10 +120,10 @@ void Tetromino::rotate_shape(int direction) { // if direction = 0: rotate 90° t
         }
     }
     if (height != org_height) {
-        removeRow(new_shape, height/2);
+        removeColumn(new_shape, height/2);
     }
     if (width != org_width) {
-        removeColumn(new_shape, width/2);
+        removeRow(new_shape, width/2);
     }
     shape = new_shape;
 }

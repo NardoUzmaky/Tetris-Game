@@ -22,7 +22,7 @@ int main() {
 
     srand((unsigned) time(NULL)); // set random seed for random number generator (otherwise we will always get the same number)
     Game game = Game();
-    Tetromino piece(PieceType::T);
+    Tetromino piece(PieceType::S);
     try {
         //game.newPiece();
         game.run();

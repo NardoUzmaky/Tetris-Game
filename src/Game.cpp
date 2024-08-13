@@ -16,11 +16,17 @@ void Game::run() {
                 switch (input) { 
                     case 'a': // move piece to the left
                         currentPiece.move_shape(1);
+                        if(board.hasCollided(currentPiece)) {
+                            currentPiece.move_shape(0);
+                        }
                         break;
                     case 'd': // move right
                         currentPiece.move_shape(0);
+                        if(board.hasCollided(currentPiece)) {
+                            currentPiece.move_shape(1);
+                        }
                         break;
-    ;                case 's': //move down
+    ;               case 's': //move down
                         currentPiece.move_shape(2);
                         break;
                     case 'w': // rotate to the right
@@ -31,14 +37,26 @@ void Game::run() {
                         break;
                 }
             }
-            std::this_thread::sleep_for(std::chrono::milliseconds((int)(20)));
             if(board.hasCollided(currentPiece)) {
+                currentPiece.move_shape(3);
                 board.update(currentPiece);
                 board.draw(currentPiece);
                 newPiece();
             } else {
                 board.draw(currentPiece);
             }
+            //static int frameCount = 0;
+            //if(++frameCount <= FPS){
+            //    currentPiece.move_shape(2);
+            //    if(board.hasCollided(currentPiece)) {
+            //        currentPiece.move_shape(3);
+            //        board.update(currentPiece);
+            //        board.draw(currentPiece);
+            //        newPiece();
+            //    }
+            //}
+            
+            std::this_thread::sleep_for(std::chrono::milliseconds((int)(33)));
         }
     }
     catch(const std::exception& e)

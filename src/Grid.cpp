@@ -67,17 +67,15 @@ void Grid::update(Tetromino& currentPiece) { // after having collided add curren
 }
 
 bool Grid::hasCollided(Tetromino& currentPiece) {
-    int PieceWidth = currentPiece.get_shape_width();
-    int PieceHeight = currentPiece.get_shape_height();
 
     int x = currentPiece.get_x();
     int y = currentPiece.get_y(); // stupid names
 
     std::vector<std::vector<int>>& shape = currentPiece.get_shape();
 
-    for(int i = 0; i < PieceHeight; ++i) {
-        for(int j = 0; j < PieceWidth; ++j) {
-            if (shape[i][j] && (i + y == BOARD_HEIGHT-1 || board[i+y+1][j+x])){
+    for(int i = 0; i < shape.size(); ++i) {
+        for(int j = 0; j < shape[i].size(); ++j) {
+            if (shape[i][j] && ((i + y == BOARD_HEIGHT || board[i+y][j+x]) || (j + x < 0 || j + x > BOARD_WIDTH-1))){
                 std::cout << "collision at " << x << ", " << y << std::endl;
                 return true;
             }

@@ -73,6 +73,10 @@ class Grid {
 
         bool hasCollided(Tetromino& currentPiece);
 
+        bool canMoveLeft(Tetromino& currentPiece);
+
+        bool canMoveRight(Tetromino& currentPiece);
+
 };
 
 class Game {
