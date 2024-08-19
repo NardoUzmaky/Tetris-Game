@@ -83,3 +83,25 @@ bool Grid::hasCollided(Tetromino& currentPiece) {
     }
     return false;
 }
+
+int Grid::filledLines() {
+    int nLinesCleared = 0;
+    for (int i = 0; i < BOARD_HEIGHT; ++i) {
+        bool filledLine = true;
+        for (int j = 0; j < BOARD_WIDTH; ++j) {
+            if (!board[i][j]) {
+                filledLine = false;
+            }
+        }
+        if (filledLine) {
+            ++nLinesCleared;
+            std::vector<int> v(BOARD_WIDTH, 0);
+            board[0] = v;
+            for (int k = i; k > 0; --k) {
+                board[k] = board[k-1];
+            }
+        }
+
+    }
+    return nLinesCleared;
+}

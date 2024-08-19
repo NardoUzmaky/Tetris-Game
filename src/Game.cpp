@@ -40,21 +40,24 @@ void Game::run() {
             if(board.hasCollided(currentPiece)) {
                 currentPiece.move_shape(3);
                 board.update(currentPiece);
+                board.filledLines(); // check and remove lines which are filled
                 board.draw(currentPiece);
                 newPiece();
             } else {
                 board.draw(currentPiece);
             }
-            //static int frameCount = 0;
-            //if(++frameCount <= FPS){
-            //    currentPiece.move_shape(2);
-            //    if(board.hasCollided(currentPiece)) {
-            //        currentPiece.move_shape(3);
-            //        board.update(currentPiece);
-            //        board.draw(currentPiece);
-            //        newPiece();
-            //    }
-            //}
+            static int frameCount = 0;
+            if(++frameCount >= FPS){
+                currentPiece.move_shape(2);
+                if(board.hasCollided(currentPiece)) {
+                    currentPiece.move_shape(3);
+                    board.update(currentPiece);
+                    board.filledLines();
+                    board.draw(currentPiece);
+                    newPiece();
+                }
+                frameCount = 0;
+            }
             
             std::this_thread::sleep_for(std::chrono::milliseconds((int)(33)));
         }
