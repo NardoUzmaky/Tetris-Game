@@ -26,7 +26,7 @@ void Game::run() {
                             currentPiece.move_shape(1);
                         }
                         break;
-    ;               case 's': //move down
+                    case 's': //move down
                         currentPiece.move_shape(2);
                         break;
                     case 'w': // rotate to the right
@@ -41,10 +41,12 @@ void Game::run() {
                 currentPiece.move_shape(3);
                 board.update(currentPiece);
                 board.filledLines(); // check and remove lines which are filled
-                board.draw(currentPiece);
+                int linesCleared = board.filledLines();
+                updateScore(linesCleared);
+                board.draw(currentPiece, score);
                 newPiece();
             } else {
-                board.draw(currentPiece);
+                board.draw(currentPiece, score);
             }
             static int frameCount = 0;
             if(++frameCount >= FPS){
@@ -52,8 +54,10 @@ void Game::run() {
                 if(board.hasCollided(currentPiece)) {
                     currentPiece.move_shape(3);
                     board.update(currentPiece);
-                    board.filledLines();
-                    board.draw(currentPiece);
+                    int linesCleared = board.filledLines();
+                    std::cout << "Number of LInes cleared: " << linesCleared << "\n";
+                    updateScore(linesCleared);
+                    board.draw(currentPiece, score);
                     newPiece();
                 }
                 frameCount = 0;
@@ -79,4 +83,26 @@ void Game::inputThread() {
 void Game::newPiece() {
     PieceType t = PieceType(rand()%7);
     currentPiece = Tetromino(t);
+}
+
+void Game::updateScore(int nLinesCleared) {
+    switch (nLinesCleared)
+    {
+    case 0:
+        return;
+    case 1:
+        score += 40*(level+1);
+        return;
+    case 2:
+        score += 100*(level+1);
+        return;
+    case 3:
+        score += 300*(level+1);
+        return;
+    case 4:
+        score += 1200*(level+1);
+        return;
+    default:
+        return;
+    }
 }

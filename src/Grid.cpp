@@ -12,7 +12,7 @@ void clear() {
     #endif
 }
 
-void Grid::draw(Tetromino& currentPiece) {
+void Grid::draw(Tetromino& currentPiece, int score) {
 
     clear(); // clear console output
 
@@ -43,6 +43,8 @@ void Grid::draw(Tetromino& currentPiece) {
         std::cout << "##";
     }
     std::cout << "\n";
+
+    std::cout << "Current Score: " << score << "\n";
 
     std::cout.flush();
 }

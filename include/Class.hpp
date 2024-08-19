@@ -67,7 +67,7 @@ class Grid {
 
         }
 
-        void draw(Tetromino& currentPiece);
+        void draw(Tetromino& currentPiece, int score);
 
         void update(Tetromino& currentPiece);
 
@@ -83,17 +83,21 @@ class Game {
         std::atomic<char> lastInput{0};
         Grid board;
         Tetromino currentPiece;
-        int score;
+        int score{0};
+        int level{1};
 
         void inputThread();
     public:
-        Game() : score(0), currentPiece(PieceType(rand()%7)) {
+        Game() : currentPiece(PieceType(rand()%7)) {
             //
         }
         
         void run();
         
         void newPiece();
+
+        //input: number of lines cleared after having placed a piece
+        void updateScore(int nLinesCleared);
 };
 
 #endif
