@@ -103,7 +103,6 @@ int Grid::filledLines() {
                 board[k] = board[k-1];
             }
         }
-
     }
     return nLinesCleared;
 }

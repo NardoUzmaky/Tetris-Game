@@ -25,6 +25,7 @@ int main() {
     Tetromino piece(PieceType::S);
     try {
         //game.newPiece();
+        //game.updateScore(4);
         game.run();
         //piece.rotate_shape(1);
         //auto shape = piece.getShape();

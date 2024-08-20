@@ -11,7 +11,7 @@
 
 const int BOARD_WIDTH = 10;
 const int BOARD_HEIGHT = 20;
-const int FPS = 30;
+const int FPS = 60;
 
 enum class PieceType {
     I, J, L, O, S, T, Z 

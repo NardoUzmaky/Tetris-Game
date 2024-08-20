@@ -40,8 +40,7 @@ void Game::run() {
             if(board.hasCollided(currentPiece)) {
                 currentPiece.move_shape(3);
                 board.update(currentPiece);
-                board.filledLines(); // check and remove lines which are filled
-                int linesCleared = board.filledLines();
+                int linesCleared = board.filledLines(); // check and remove lines which are filled
                 updateScore(linesCleared);
                 board.draw(currentPiece, score);
                 newPiece();
@@ -49,7 +48,7 @@ void Game::run() {
                 board.draw(currentPiece, score);
             }
             static int frameCount = 0;
-            if(++frameCount >= FPS){
+            if(++frameCount >= (int)(FPS/2)){
                 currentPiece.move_shape(2);
                 if(board.hasCollided(currentPiece)) {
                     currentPiece.move_shape(3);
@@ -63,7 +62,7 @@ void Game::run() {
                 frameCount = 0;
             }
             
-            std::this_thread::sleep_for(std::chrono::milliseconds((int)(33)));
+            std::this_thread::sleep_for(std::chrono::milliseconds((int)(1000/FPS)));
         }
     }
     catch(const std::exception& e)
@@ -86,23 +85,22 @@ void Game::newPiece() {
 }
 
 void Game::updateScore(int nLinesCleared) {
-    switch (nLinesCleared)
-    {
-    case 0:
-        return;
-    case 1:
-        score += 40*(level+1);
-        return;
-    case 2:
-        score += 100*(level+1);
-        return;
-    case 3:
-        score += 300*(level+1);
-        return;
-    case 4:
-        score += 1200*(level+1);
-        return;
-    default:
-        return;
+    switch (nLinesCleared) {
+        case 0:
+            return;
+        case 1:
+            score += 40*(level+1);
+            return;
+        case 2:
+            score += 100*(level+1);
+            return;
+        case 3:
+            score += 300*(level+1);
+            return;
+        case 4:
+            score += 1200*(level+1);
+            return;
+        default:
+            return;
     }
 }
