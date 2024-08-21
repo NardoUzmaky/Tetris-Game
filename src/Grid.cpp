@@ -22,6 +22,7 @@ void Grid::draw(Tetromino& currentPiece, int score) {
     int y = currentPiece.get_y();
 
     std::vector<std::vector<int>>& shape = currentPiece.get_shape();
+    Color pieceColor = currentPiece.getColor();
 
     for (int i = 0; i < BOARD_WIDTH+1; ++i) {
         std::cout << "##";
@@ -30,10 +31,12 @@ void Grid::draw(Tetromino& currentPiece, int score) {
     for(int i = 0;i < BOARD_HEIGHT; ++i) {
         std::cout << "#";
         for (int j = 0; j < BOARD_WIDTH; ++j) {
-            if((x <= j && j < x + current_Piece_width) && (y <= i && i < y + current_Piece_height)){
-                std::cout << (shape[i-y][j-x] ? "[]" : (board[i][j] ? "[]" : "  "));
+            if((x <= j && j < x + current_Piece_width) && (y <= i && i < y + current_Piece_height) && shape[i-y][j-x]){
+                std::cout << "\033[" << static_cast<int>(pieceColor) << "m[]" << "\033[0m";
+            } else if (board[i][j]){
+                std::cout << "\033[" << static_cast<int>(board[i][j]) << "m[]" << "\033[0m";
             } else {
-                std::cout << (board[i][j] ? "[]" : "  ");  
+                std::cout << "  ";
             }
         };
         std::cout << "#";
@@ -57,11 +60,12 @@ void Grid::update(Tetromino& currentPiece) { // after having collided add curren
     int y = currentPiece.get_y();
 
     std::vector<std::vector<int>>& shape = currentPiece.get_shape();
+    int ColorCode = static_cast<int>(currentPiece.getColor());
 
     for(int i = 0; i < PieceHeight; ++i) {
         for(int j = 0; j < PieceWidth; ++j) {
             if (shape[i][j]){
-                board[i+y][j+x] = 1;
+                board[i+y][j+x] = ColorCode;
             }
         }
     }
@@ -78,7 +82,6 @@ bool Grid::hasCollided(Tetromino& currentPiece) {
     for(int i = 0; i < shape.size(); ++i) {
         for(int j = 0; j < shape[i].size(); ++j) {
             if (shape[i][j] && ((i + y == BOARD_HEIGHT || board[i+y][j+x]) || (j + x < 0 || j + x > BOARD_WIDTH-1))){
-                std::cout << "collision at " << x << ", " << y << std::endl;
                 return true;
             }
         }

@@ -76,6 +76,36 @@ void Tetromino::init_shape() {
     }
 }
 
+Color Tetromino::getColor() const {
+    return color;
+}
+
+void Tetromino::setColor() {
+    switch(type) {
+        case PieceType::I:
+            color = Color::Cyan;
+            break;
+        case PieceType::J:
+            color = Color::Blue;
+            break;
+        case PieceType::L:
+            color = Color::White;
+            break;
+        case PieceType::O:
+            color = Color::Yellow;
+            break;
+        case PieceType::S:
+            color = Color::Green;
+            break;
+        case PieceType::T:
+            color = Color::Magenta;
+            break;
+        case PieceType::Z:
+            color = Color::Red;
+            break;
+    }
+}
+
 void Tetromino::rotate_shape(int direction) { // if direction = 0: rotate 90° to the right, if direction = 1: rotate 90° to the left
     int height = shape.size();
     int width = shape[0].size();

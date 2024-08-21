@@ -4,10 +4,6 @@
 #include <exception>
 #include <atomic>
 
-
-
-int FRAMES_PER_SECOND = 30;
-
 int main() {
 
     //std::vector<std::vector<int>> RotMatrix = {{1, 0, 2}, 
@@ -24,6 +20,7 @@ int main() {
     Game game = Game();
     Tetromino piece(PieceType::S);
     try {
+        //std::cout << "\033[" << 33 << "m[]" << "\033[0m";
         //game.newPiece();
         //game.updateScore(4);
         game.run();

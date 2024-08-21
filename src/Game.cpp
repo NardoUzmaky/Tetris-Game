@@ -54,7 +54,6 @@ void Game::run() {
                     currentPiece.move_shape(3);
                     board.update(currentPiece);
                     int linesCleared = board.filledLines();
-                    std::cout << "Number of LInes cleared: " << linesCleared << "\n";
                     updateScore(linesCleared);
                     board.draw(currentPiece, score);
                     newPiece();

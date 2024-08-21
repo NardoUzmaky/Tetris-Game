@@ -11,27 +11,34 @@
 
 const int BOARD_WIDTH = 10;
 const int BOARD_HEIGHT = 20;
-const int FPS = 60;
+const int FPS = 30;
 
 enum class PieceType {
     I, J, L, O, S, T, Z 
 };
 
-enum class Colors { 
-    red, green, blue, yellow, pink, orange, lightblue
+enum class Color {
+    Red = 31,
+    Green = 32,
+    Yellow = 33,
+    Blue = 34,
+    Magenta = 35,
+    Cyan = 36,
+    White = 37
 };
 
 class Tetromino {
     private: 
         PieceType type;
-        Colors color;
+        Color color;
         std::vector<std::vector<int>> shape;
         //int alignment; // 0 = default, 1 = rotated 90 deg to the right, 2 = etc..
         int x, y; // coordinates of top left corner of shape
 
     public:
         Tetromino(PieceType t) : type(t), x((int)((BOARD_WIDTH)/2)), y(0) {
-            setRandomColor();
+            //setRandomColor();
+            setColor();
             init_shape();
         }
 
@@ -42,8 +49,12 @@ class Tetromino {
         }
 
         void setRandomColor() {
-            color = Colors(rand()%7); 
+            color = Color(rand()%7); 
         }
+
+        void setColor();
+
+        Color getColor() const;
 
         void rotate_shape(int direction);
 
@@ -63,9 +74,7 @@ class Grid {
     private: 
         std::vector<std::vector<int>> board;
     public:
-        Grid() : board(BOARD_HEIGHT, std::vector<int>(BOARD_WIDTH, 0)) {
-
-        }
+        Grid() : board(BOARD_HEIGHT, std::vector<int>(BOARD_WIDTH, 0)) {}
 
         void draw(Tetromino& currentPiece, int score);
 
