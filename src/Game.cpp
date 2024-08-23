@@ -8,7 +8,11 @@ void Game::run() {
     std::thread input(&Game::inputThread, this);
     try
     {
+    #ifdef _WIN32
         system("cls");
+    #elif defined (__LINUX__) || defined(__gnu_linux__) || defined(__linux__)
+        std::cout<< u8"\033[2J\033[1;1H";
+    #endif
         while(this->isRunning) {
 
             char input = lastInput.exchange(0); // gets character and replaces it with 0
