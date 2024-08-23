@@ -1,12 +1,11 @@
 #include "../include/Class.hpp"
 #include <iostream>
+#include <sstream>
 #include <windows.h>
-
-
 
 void clear() {
     #ifdef _WIN32
-        system("cls");
+        std::cout<< "\033[H";
     #elif defined (__LINUX__) || defined(__gnu_linux__) || defined(__linux__)
         std::cout<< u8"\033[2J\033[1;1H";
     #endif
@@ -14,7 +13,6 @@ void clear() {
 
 void Grid::draw(Tetromino& currentPiece, int score) {
 
-    clear(); // clear console output
 
     int current_Piece_height = currentPiece.get_shape_height();
     int current_Piece_width = currentPiece.get_shape_width();
@@ -24,31 +22,35 @@ void Grid::draw(Tetromino& currentPiece, int score) {
     std::vector<std::vector<int>>& shape = currentPiece.get_shape();
     Color pieceColor = currentPiece.getColor();
 
+    std::stringstream string_buffer;
+
     for (int i = 0; i < BOARD_WIDTH+1; ++i) {
-        std::cout << "##";
+        string_buffer << "##";
     }
-    std::cout << "\n";
+    string_buffer << "\n";
     for(int i = 0;i < BOARD_HEIGHT; ++i) {
-        std::cout << "#";
+        string_buffer << "#";
         for (int j = 0; j < BOARD_WIDTH; ++j) {
             if((x <= j && j < x + current_Piece_width) && (y <= i && i < y + current_Piece_height) && shape[i-y][j-x]){
-                std::cout << "\033[" << static_cast<int>(pieceColor) << "m[]" << "\033[0m";
+                string_buffer << "\033[" << static_cast<int>(pieceColor) << "m[]" << "\033[0m";
             } else if (board[i][j]){
-                std::cout << "\033[" << static_cast<int>(board[i][j]) << "m[]" << "\033[0m";
+                string_buffer << "\033[" << board[i][j] << "m[]" << "\033[0m";
             } else {
-                std::cout << "  ";
+                string_buffer << "  ";
             }
         };
-        std::cout << "#";
-        std::cout << "\n";
+        string_buffer << "#";
+        string_buffer << "\n";
     }
     for (int i = 0; i < BOARD_WIDTH+1; ++i) {
-        std::cout << "##";
+        string_buffer << "##";
     }
-    std::cout << "\n";
+    string_buffer << "\n";
 
-    std::cout << "Current Score: " << score << "\n";
+    string_buffer << "Current Score: " << score << "\n";
 
+    clear(); // clear console output
+    std::cout << string_buffer.str();
     std::cout.flush();
 }
 

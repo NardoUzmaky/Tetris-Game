@@ -8,6 +8,7 @@ void Game::run() {
     std::thread input(&Game::inputThread, this);
     try
     {
+        system("cls");
         while(this->isRunning) {
 
             char input = lastInput.exchange(0); // gets character and replaces it with 0
