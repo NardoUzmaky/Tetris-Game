@@ -3,11 +3,11 @@
 
 #include <cmath>
 
-// move one tile to the left if direction = 0, right if direction ==1 and down if direction == 2
+// move one tile to the right if direction = 0, left if direction ==1 and down if direction == 2
 void Tetromino::move_shape(int direction) {
-    if (direction == 0) {
+    if (direction == 0) { // right
         ++x;
-    } else if (direction == 1) {
+    } else if (direction == 1) { // left
         --x;
     } else if (direction == 2){ // move down 
         ++y;

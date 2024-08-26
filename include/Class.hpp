@@ -97,12 +97,12 @@ class Game {
 
         void inputThread();
     public:
-        Game() : currentPiece(PieceType(rand()%7)) {
-            //
-        }
+        Game() : currentPiece(PieceType(rand()%7)) {}
         
         void run();
         
+        void processInput(char &input);
+
         void newPiece();
 
         //input: number of lines cleared after having placed a piece

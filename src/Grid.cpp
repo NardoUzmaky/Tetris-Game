@@ -74,7 +74,7 @@ void Grid::update(Tetromino& currentPiece) { // after having collided add curren
     return;
 }
 
-bool Grid::hasCollided(Tetromino& currentPiece) {
+bool Grid::hasCollided(Tetromino& currentPiece) { // checks if piece is an invalid position (ouside bounds or intersecting with other tiles)
 
     int x = currentPiece.get_x();
     int y = currentPiece.get_y(); // stupid names

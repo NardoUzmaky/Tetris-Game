@@ -17,31 +17,9 @@ void Game::run() {
 
             char input = lastInput.exchange(0); // gets character and replaces it with 0
 
-            if (input != 0) {
-                switch (input) { 
-                    case 'a': // move piece to the left
-                        currentPiece.move_shape(1);
-                        if(board.hasCollided(currentPiece)) {
-                            currentPiece.move_shape(0);
-                        }
-                        break;
-                    case 'd': // move right
-                        currentPiece.move_shape(0);
-                        if(board.hasCollided(currentPiece)) {
-                            currentPiece.move_shape(1);
-                        }
-                        break;
-                    case 's': //move down
-                        currentPiece.move_shape(2);
-                        break;
-                    case 'w': // rotate to the right
-                        currentPiece.rotate_shape(0);
-                        break;
-                    case 'q': // quit
-                        isRunning = false;
-                        break;
-                }
-            }
+            
+            processInput(input);
+
             if(board.hasCollided(currentPiece)) {
                 currentPiece.move_shape(3);
                 board.update(currentPiece);
@@ -80,6 +58,61 @@ void Game::inputThread() {
     while(isRunning) {
         char ch = getch();
         lastInput.store(ch); // replace existing value with char from input
+    }
+}
+
+void Game::processInput(char &input)  {
+    if (input != 0) {
+        switch (input) { 
+            case 'a': // move piece to the left
+                currentPiece.move_shape(1);
+                if (board.hasCollided(currentPiece)) {
+                    currentPiece.move_shape(0);
+                }
+                break;
+            case 'd': // move right
+                currentPiece.move_shape(0);
+                if (board.hasCollided(currentPiece)) {
+                    currentPiece.move_shape(1);
+                }
+                break;
+            case 's': //move down
+                currentPiece.move_shape(2);
+                break;
+            case 'w': // rotate to the right
+                currentPiece.rotate_shape(0);
+                if (board.hasCollided(currentPiece)) {
+                    currentPiece.rotate_shape(1); 
+                    currentPiece.move_shape(0);
+                    currentPiece.rotate_shape(0);
+                    if (board.hasCollided(currentPiece)) {
+                        currentPiece.rotate_shape(1); 
+                        currentPiece.move_shape(0);
+                        currentPiece.rotate_shape(0);
+                        if (board.hasCollided(currentPiece)) { // this means its probably collided on the left side
+                            currentPiece.rotate_shape(1); 
+                            currentPiece.move_shape(1);
+                            currentPiece.move_shape(1);
+                            currentPiece.move_shape(1);
+                            currentPiece.rotate_shape(0);
+                            if (board.hasCollided(currentPiece)) {
+                                currentPiece.rotate_shape(1); 
+                                currentPiece.move_shape(1);
+                                currentPiece.rotate_shape(0);
+                                
+                            }
+                        }
+                    }
+                }
+                if (board.hasCollided(currentPiece)) { // if still colliding, move to original position
+                    
+                }
+    
+                break;
+            case 'q': // quit
+                isRunning = false;
+                break;
+        }
     }
 }
 
