@@ -92,6 +92,9 @@ class Game {
         std::atomic<char> lastInput{0};
         Grid board;
         Tetromino currentPiece;
+
+        int numberLinesCleared{0};
+
         int score{0};
         int level{1};
 
@@ -107,6 +110,8 @@ class Game {
 
         //input: number of lines cleared after having placed a piece
         void updateScore(int nLinesCleared);
+
+        void updateLevel();
 };
 
 #endif
