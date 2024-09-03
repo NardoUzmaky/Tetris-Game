@@ -58,7 +58,10 @@ class Tetromino {
 
         void rotate_shape(int direction);
 
-        void move_shape(int direction);
+        void move_right(int nTiles);
+        void move_left(int nTiles);
+        void move_up(int nTiles);
+        void move_down(int nTiles);
 
         int get_shape_width();
 
@@ -112,6 +115,8 @@ class Game {
         void updateScore(int nLinesCleared);
 
         void updateLevel();
+
+        void rotatePiece(); // rotate to the right
 };
 
 #endif
