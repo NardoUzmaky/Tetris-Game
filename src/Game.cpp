@@ -28,14 +28,11 @@ void Game::run() {
 
             char input = lastInput.exchange(0); // gets character and replaces it with 0
 
-            
             processInput(input);
 
-            board.draw(currentPiece, score);
-
-            if(board.hasCollided(currentPiece)) {
-                currentPiece.move_up(1);
-                board.update(currentPiece);
+            if(board.hasCollided(*currentPiece)) {
+                currentPiece->move_up(1);
+                board.update(*currentPiece);
                 int linesCleared = board.filledLines(); // check and remove lines which are filled
                 updateScore(linesCleared);
                 numberLinesCleared += linesCleared;
@@ -43,10 +40,10 @@ void Game::run() {
             }
             static int frameCount = 0;
             if(++frameCount >= (int)(FPS/level)){
-                currentPiece.move_down(1);
-                if(board.hasCollided(currentPiece)) {
-                    currentPiece.move_up(1);
-                    board.update(currentPiece);
+                currentPiece->move_down(1);
+                if(board.hasCollided(*currentPiece)) {
+                    currentPiece->move_up(1);
+                    board.update(*currentPiece);
                     int linesCleared = board.filledLines();
                     updateScore(linesCleared);
                     numberLinesCleared += linesCleared;
@@ -57,7 +54,7 @@ void Game::run() {
 
             updateLevel();
 
-            board.draw(currentPiece, score);
+            board.draw(*currentPiece, *nextPiece, score);
             
             std::this_thread::sleep_for(std::chrono::milliseconds((int)(1000/FPS)));
         }
@@ -117,19 +114,19 @@ void Game::processInput(char &input)  {
     if (input != 0) {
         switch (input) { 
             case 'a': // move piece to the left
-                currentPiece.move_left(1);
-                if (board.hasCollided(currentPiece)) {
-                    currentPiece.move_right(1);
+                currentPiece->move_left(1);
+                if (board.hasCollided(*currentPiece)) {
+                    currentPiece->move_right(1);
                 }
                 break;
             case 'd': // move right
-                currentPiece.move_right(1);
-                if (board.hasCollided(currentPiece)) {
-                    currentPiece.move_left(1);
+                currentPiece->move_right(1);
+                if (board.hasCollided(*currentPiece)) {
+                    currentPiece->move_left(1);
                 }
                 break;
             case 's': //move down
-                currentPiece.move_down(1);
+                currentPiece->move_down(1);
                 break;
             case 'w': // rotate to the right
                 rotatePiece();
@@ -144,30 +141,31 @@ void Game::processInput(char &input)  {
 // tries to rotate piece right, if it collidies tries rotating after moving piece left and right
 // does nothing if not possible
 void Game::rotatePiece() {
-    int nTries = (int)(currentPiece.get_shape_height()/2.0+0.5); // max number of tiles to move in either direction in order to try to rotate piece
+    int nTries = (int)(currentPiece->get_shape_height()/2.0+0.5); // max number of tiles to move in either direction in order to try to rotate piece
     for (int i = 0; i != nTries; ++i) {
-        currentPiece.rotate_shape(0);
-        if (!board.hasCollided(currentPiece)) {
+        currentPiece->rotate_shape(0);
+        if (!board.hasCollided(*currentPiece)) {
             return;
         }
-        currentPiece.rotate_shape(1);
-        currentPiece.move_right(1);
+        currentPiece->rotate_shape(1);
+        currentPiece->move_right(1);
     }
-    currentPiece.move_left(nTries+1);
+    currentPiece->move_left(nTries+1);
     for (int i = 0; i < nTries; ++i) {
-        currentPiece.rotate_shape(0);
-        if (!board.hasCollided(currentPiece)) {
+        currentPiece->rotate_shape(0);
+        if (!board.hasCollided(*currentPiece)) {
             return;
         }
-        currentPiece.rotate_shape(1);
-        currentPiece.move_left(1);
+        currentPiece->rotate_shape(1);
+        currentPiece->move_left(1);
     }
-    currentPiece.move_right(nTries+1);
+    currentPiece->move_right(nTries+1);
 }
 
 void Game::newPiece() {
-    PieceType t = PieceType(rand()%7);
-    currentPiece = Tetromino(t);
+    delete currentPiece;
+    currentPiece = nextPiece;
+    nextPiece = new Tetromino(PieceType(rand()%7));
 }
 
 void Game::updateScore(int nLinesCleared) {

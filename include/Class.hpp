@@ -79,7 +79,7 @@ class Grid {
     public:
         Grid() : board(BOARD_HEIGHT, std::vector<int>(BOARD_WIDTH, 0)) {}
 
-        void draw(Tetromino& currentPiece, int score);
+        void draw(Tetromino& currentPiece, Tetromino& nextPiece, int score);
 
         void update(Tetromino& currentPiece);
 
@@ -94,7 +94,8 @@ class Game {
         std::atomic<bool> isRunning{true};
         std::atomic<char> lastInput{0};
         Grid board;
-        Tetromino currentPiece;
+        Tetromino* currentPiece;
+        Tetromino* nextPiece;
 
         int numberLinesCleared{0};
 
@@ -103,7 +104,15 @@ class Game {
 
         void inputThread();
     public:
-        Game() : currentPiece(PieceType(rand()%7)) {}
+        Game() {
+            currentPiece = new Tetromino(PieceType(rand()%7));
+            nextPiece = new Tetromino(PieceType(rand()%7));
+        }
+
+        ~Game() {
+            delete currentPiece;
+            delete nextPiece;
+        }
         
         void run();
         

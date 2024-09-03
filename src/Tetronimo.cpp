@@ -113,10 +113,11 @@ void Tetromino::setColor() {
 }
 
 void Tetromino::rotate_shape(int direction) { // if direction = 0: rotate 90° to the right, if direction = 1: rotate 90° to the left
-    int height = shape.size();
-    int width = shape[0].size();
+    int height = get_shape_height();
+    int width = get_shape_width();
     int org_height = height;
     int org_width = width;
+    
     if (height % 2 == 0) {
         int middleRow = height / 2;
         insertRow(shape, middleRow);
