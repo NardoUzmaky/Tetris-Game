@@ -36,10 +36,11 @@ class Tetromino {
         int x, y; // coordinates of top left corner of shape
 
     public:
-        Tetromino(PieceType t) : type(t), x((int)((BOARD_WIDTH)/2)), y(0) {
+        Tetromino(PieceType t) : type(t), y(0) {
             //setRandomColor();
             setColor();
             init_shape();
+            x = (int)(BOARD_WIDTH/2 - 1 - get_shape_width()/2);
         }
 
         void init_shape();

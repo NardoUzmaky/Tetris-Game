@@ -14,24 +14,30 @@ void clear() {
 void Grid::draw(Tetromino& currentPiece, Tetromino& nextPiece, int score) {
 
 
-    int current_Piece_height = currentPiece.get_shape_height();
-    int current_Piece_width = currentPiece.get_shape_width();
-    int next_Piece_height = nextPiece.get_shape_height();
-    int next_Piece_width = nextPiece.get_shape_width();
+    const int current_Piece_height = currentPiece.get_shape_height();
+    const int current_Piece_width = currentPiece.get_shape_width();
+    const int next_Piece_height = nextPiece.get_shape_height();
+    const int next_Piece_width = nextPiece.get_shape_width();
 
-    int x = currentPiece.get_x();
-    int y = currentPiece.get_y();
+    const int x = currentPiece.get_x();
+    const int y = currentPiece.get_y();
+
+    const int next_x = nextPiece.get_x();
+    const int next_y = nextPiece.get_y();
 
     std::vector<std::vector<int>>& shape = currentPiece.get_shape();
+    std::vector<std::vector<int>>& nextShape = nextPiece.get_shape();
     Color pieceColor = currentPiece.getColor();
+    Color nextPieceColor = nextPiece.getColor();
 
     std::stringstream string_buffer;
-
+    // draw next piece display
     for (int i = 0; i < BOARD_WIDTH+1; ++i) {
         string_buffer << "##";
     }
     string_buffer << "\n";
     string_buffer << "#";
+
     for (int i = 0; i < BOARD_WIDTH-5; ++i) {
         if (i == (int)(BOARD_WIDTH/2-3)) {
             string_buffer << "Next Piece: ";
@@ -39,30 +45,55 @@ void Grid::draw(Tetromino& currentPiece, Tetromino& nextPiece, int score) {
             string_buffer << "  ";
         }
     }
+    // padding
     string_buffer << "#\n#";
     for (int i = 0; i < BOARD_WIDTH; ++i) {
         string_buffer << "  ";
     }
     string_buffer << "#\n";
-    
 
-/*
-    string_buffer << "\nNext Piece:\n";
-    for (int i = 0; i < BOARD_HEIGHT; ++i) {
+    //display next piece (ignoring empty lines of shape)
+    int real_piece_width = 0;
+    for (int i = 0; i < next_Piece_height; ++i) {
+        std::stringstream help_buffer;
+        help_buffer << "#";
+        bool emptyRow = true;
         for (int j = 0; j < BOARD_WIDTH; ++j) {
-            if (i < nextPiece.get_shape_height() && j < nextPiece.get_shape_width() && nextPiece.get_shape()[i][j]) {
-                string_buffer << "\033[" << static_cast<int>(nextPiece.getColor()) << "m[]" << "\033[0m";
+            if((next_x <= j && j < next_x + next_Piece_width) && (next_y <= i && i < next_y + next_Piece_height) && nextShape[i-next_y][j-next_x]){
+                help_buffer << "\033[" << static_cast<int>(nextPieceColor) << "m[]" << "\033[0m";
+                emptyRow = false;
             } else {
-                string_buffer << "  ";
+                help_buffer << "  ";
             }
         }
-        string_buffer << "\n";
+        if(!emptyRow) {
+            string_buffer << help_buffer.str();
+            string_buffer << "#\n";
+            ++real_piece_width;
+        }
     }
-*/
-    for (int i = 0; i < BOARD_WIDTH+1; ++i) {
+    //calculate line_buffer
+    std::stringstream line_buffer;
+    const static int line_buffer_size = 5;
+    for (int i = 0; i < line_buffer_size-real_piece_width; ++i) {
+        line_buffer << "\n";
+    }
+
+    //padding
+    string_buffer << "#";
+    for (int i = 0; i < BOARD_WIDTH; ++i) {
+        string_buffer << "  ";
+    }
+    string_buffer << "#\n";
+
+    // top border
+    string_buffer << "#";
+    for (int i = 0; i < BOARD_WIDTH; ++i) {
         string_buffer << "##";
     }
-    string_buffer << "\n";
+    string_buffer << "#\n";
+
+    // draw main board
     for(int i = 0;i < BOARD_HEIGHT; ++i) {
         string_buffer << "#";
         for (int j = 0; j < BOARD_WIDTH; ++j) {
@@ -85,7 +116,7 @@ void Grid::draw(Tetromino& currentPiece, Tetromino& nextPiece, int score) {
     string_buffer << "Current Score: " << score << "\n";
 
     clear(); // clear console output
-    std::cout << string_buffer.str();
+    std::cout << line_buffer.str() << string_buffer.str();
     std::cout.flush();
 }
 
