@@ -72,19 +72,22 @@ void Grid::draw(Tetromino& currentPiece, Tetromino& nextPiece, int score) {
             ++real_piece_width;
         }
     }
+    /*
     //calculate line_buffer
     std::stringstream line_buffer;
     const static int line_buffer_size = 5;
     for (int i = 0; i < line_buffer_size-real_piece_width; ++i) {
         line_buffer << "\n";
     }
-
+    */
     //padding
-    string_buffer << "#";
-    for (int i = 0; i < BOARD_WIDTH; ++i) {
+    for (int i = 1; i <= 3-real_piece_width; ++i) {
+        string_buffer << "#";
+    for (int j = 0; j < BOARD_WIDTH; ++j) {
         string_buffer << "  ";
     }
     string_buffer << "#\n";
+    }
 
     // top border
     string_buffer << "#";
@@ -116,7 +119,7 @@ void Grid::draw(Tetromino& currentPiece, Tetromino& nextPiece, int score) {
     string_buffer << "Current Score: " << score << "\n";
 
     clear(); // clear console output
-    std::cout << line_buffer.str() << string_buffer.str();
+    std::cout << /*line_buffer.str() <<*/ string_buffer.str();
     std::cout.flush();
 }
 

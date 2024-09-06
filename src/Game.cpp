@@ -1,9 +1,9 @@
 #include "../include/Class.hpp"
 #include <thread>
 #include <iostream>
-#include <conio.h>
+//#include <conio.h>
 
-/*
+
 #ifdef _WIN32
 
 #include <windows.h>
@@ -14,7 +14,7 @@
 
 #endif 
 
-*/
+
 void Game::run() {
     std::thread input(&Game::inputThread, this);
     try
@@ -28,28 +28,37 @@ void Game::run() {
 
             char input = lastInput.exchange(0); // gets character and replaces it with 0
 
-            processInput(input);
+            processInput(input); // update position and alignment (rotation) of piece
+
+
+            static int frameCount = 0;
+            static int lock_delay_frames = (int)(FPS/3);
+            static bool inLockDelay = false;
+
+            if(++frameCount >= (int)(FPS/level)){ // gravity
+                if(!board.hasCollided(*currentPiece)) {
+                    currentPiece->move_down(1);
+                }
+                frameCount = 0;
+            }
+
+            if (inLockDelay) {
+                --lock_delay_frames;
+            }
 
             if(board.hasCollided(*currentPiece)) {
+                inLockDelay = true;
                 currentPiece->move_up(1);
-                board.update(*currentPiece);
-                int linesCleared = board.filledLines(); // check and remove lines which are filled
-                updateScore(linesCleared);
-                numberLinesCleared += linesCleared;
-                newPiece();
-            }
-            static int frameCount = 0;
-            if(++frameCount >= (int)(FPS/level)){
-                currentPiece->move_down(1);
-                if(board.hasCollided(*currentPiece)) {
-                    currentPiece->move_up(1);
+
+                if (lock_delay_frames <= 0) {
                     board.update(*currentPiece);
-                    int linesCleared = board.filledLines();
+                    int linesCleared = board.filledLines(); // check and remove lines which are filled
                     updateScore(linesCleared);
                     numberLinesCleared += linesCleared;
                     newPiece();
+                    lock_delay_frames = (int)(FPS/3);
+                    inLockDelay = false; 
                 }
-                frameCount = 0;
             }
 
             updateLevel();
@@ -67,7 +76,7 @@ void Game::run() {
 }
 
 void Game::inputThread() {
-    /*
+    
     #ifdef _WIN32
 
     INPUT_RECORD irInBuf[128];
@@ -98,16 +107,17 @@ void Game::inputThread() {
                 }
             }
         }
+        std::this_thread::sleep_for(std::chrono::milliseconds(1));
     }    
 
     #elif defined (__LINUX__) || defined(__gnu_linux__) || defined(__linux__)
-    */
+    
     while(isRunning) {
         char ch = getch();
         lastInput.store(ch); // replace existing value with char from input
     }
 
-    //#endif
+    #endif
 }
 
 void Game::processInput(char &input)  {
@@ -190,5 +200,5 @@ void Game::updateScore(int nLinesCleared) {
 }
 
 void Game::updateLevel() {
-    level = (int)(1 + numberLinesCleared/5);
+    level = (int)(1 + numberLinesCleared/10);
 }

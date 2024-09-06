@@ -11,7 +11,7 @@
 
 const int BOARD_WIDTH = 10;
 const int BOARD_HEIGHT = 20;
-const int FPS = 30;
+const int FPS = 60;
 
 enum class PieceType {
     I, J, L, O, S, T, Z 
@@ -40,7 +40,7 @@ class Tetromino {
             //setRandomColor();
             setColor();
             init_shape();
-            x = (int)(BOARD_WIDTH/2 - 1 - get_shape_width()/2);
+            x = (int)(BOARD_WIDTH/2 - get_shape_width()/2);
         }
 
         void init_shape();
