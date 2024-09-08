@@ -1,13 +1,20 @@
 #include "../include/Class.hpp"
 #include <iostream>
 #include <sstream>
+
+#ifdef _WIN32
+
 #include <windows.h>
+
+#endif
 
 void clear() {
     #ifdef _WIN32
         std::cout<< "\033[H";
     #elif defined (__LINUX__) || defined(__gnu_linux__) || defined(__linux__)
-        std::cout<< u8"\033[2J\033[1;1H";
+        std::cout << u8"\033[2J\033[1;1H";
+    #elif defined (__APPLE_)
+        std::cout <<"\033[2J\033[1;1H";
     #endif
 }
 
