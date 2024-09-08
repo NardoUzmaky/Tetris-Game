@@ -12,6 +12,10 @@
 
 #include <conio.h>
 
+#elif defined (__APPLE__)
+    #include <termios.h>
+    #include <unistd.h>
+
 #endif 
 
 
@@ -116,6 +120,23 @@ void Game::inputThread() {
         char ch = getch();
         lastInput.store(ch); // replace existing value with char from input
     }
+
+    #elif defined (__APPLE__)
+
+    struct termios oldt, newt;
+    tcgetattr(STDIN_FILENO, &oldt);
+    newt = oldt;
+    newt.c_lflag &= ~(ICANON | ECHO);
+    tcsetattr(STDIN_FILENO, TCSANOW, &newt);
+
+    while (isRunning) {
+        char ch;
+        if (read(STDIN_FILENO, &ch, 1) > 0) {
+            lastInput.store(ch);
+        }
+    }
+
+    tcsetattr(STDIN_FILENO, TCSANOW, &oldt);
 
     #endif
 }

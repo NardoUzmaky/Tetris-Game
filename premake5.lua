@@ -1,19 +1,30 @@
 workspace "tetris_game"
     configurations {"Debug", "Release"}
-    platforms {"Win64"}
+    platforms {"Win64", "Linux", "MacOS"}
     location "bin"
+
     filter {"platforms:Win64"}
         system "Windows"
+        architecture "x64"
+
+    filter {"platforms:Linux"}
+        system "Linux"
+        architecture "x64"
+
+    filter {"platforms:MacOS"}
+        system "MacOS"
         architecture "x64"
 
 project "main"
     kind "ConsoleApp"
     language "C++"
-    targetdir "bin"
-    objdir "bin/obj/%{cfg.buildcfg}"
+    targetdir "bin/%{cfg.buildcfg}-%{cfg.platform}"
+    objdir "bin/obj/%{cfg.buildcfg}-%{cfg.platform}"
 
     files {"src/*.cpp", "include/*.hpp"}
     includedirs {"include"}
+
+    staticruntime "On"
 
     filter "configurations:Debug"
         defines {"DEBUG"}
